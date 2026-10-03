@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Naruto Anime ID Card</title>
+
+    <!-- Anime-style fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Orbitron", sans-serif;
+
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255, 80, 0, 0.18), transparent 25%),
+                radial-gradient(circle at 85% 80%, rgba(255, 0, 0, 0.14), transparent 30%),
+                linear-gradient(135deg, #030303, #100705, #050505);
+
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* ==========================
+           BACKGROUND EFFECTS
+        ========================== */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .energy {
+            position: fixed;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.3;
+            animation: floatEnergy 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .energy.one {
+            background: #ff3c00;
+            top: 5%;
+            left: -5%;
+        }
+
+        .energy.two {
+            background: #ff8c00;
+            bottom: 5%;
+            right: -5%;
+            animation-delay: 2s;
+        }
+
+        @keyframes floatEnergy {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(40px, -30px) scale(1.15);
+            }
+        }
+
+        /* ==========================
+           MAIN CONTAINER
+        ========================== */
+
+        .page {
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding: 40px 20px;
+        }
+
+        /* ==========================
+           TITLE
+        ========================== */
+
+        .main-title {
+            font-family: "Bangers", cursive;
+            font-size: clamp(3rem, 9vw, 7.5rem);
+            letter-spacing: 5px;
+
+            color: #ff5a00;
+
+            text-align: center;
+
+            text-shadow:
+                0 0 10px rgba(255, 70, 0, 0.8),
+                0 0 30px rgba(255, 50, 0, 0.5),
+                4px 4px 0 #000;
+
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: clamp(0.8rem, 2vw, 1.2rem);
+            letter-spacing: 5px;
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 35px;
+        }
+
+        /* ==========================
+           ID CARD
+        ========================== */
+
+        .id-card {
+            width: min(100%, 1100px);
+
+            position: relative;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(30,30,30,0.95),
+                    rgba(8,8,8,0.98)
+                );
+
+            border: 2px solid rgba(255, 70, 0, 0.75);
+
+            border-radius: 30px;
+
+            padding: 42px;
+
+            box-shadow:
+                0 0 25px rgba(255, 60, 0, 0.2),
+                0 0 80px rgba(255, 30, 0, 0.12),
+                inset 0 0 30px rgba(255, 70, 0, 0.04);
+
+            overflow: hidden;
+
+            animation: cardAppear 1s ease;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .id-card::before {
+            content: "";
+            position: absolute;
+
+            width: 400px;
+            height: 400px;
+
+            border: 1px solid rgba(255, 80, 0, 0.15);
+            border-radius: 50%;
+
+            top: -250px;
+            right: -150px;
+        }
+
+        .id-card::after {
+            content: "";
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            border: 1px solid rgba(255, 80, 0, 0.1);
+            border-radius: 50%;
+
+            bottom: -130px;
+            left: -90px;
+        }
+
+        /* ==========================
+           HEADER
+        ========================== */
+
+        .card-header {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Sharingan-like CSS symbol */
+        .anime-symbol {
+            width: 85px;
+            height: 85px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #050505 0 15%,
+                    #d80000 16% 28%,
+                    #050505 29% 33%,
+                    #b80000 34% 62%,
+                    #050505 63% 100%
+                );
+
+            box-shadow:
+                0 0 20px rgba(255,0,0,0.7);
+
+            position: relative;
+
+            animation: spinSymbol 10s linear infinite;
+        }
+
+        .anime-symbol::before,
+        .anime-symbol::after {
+            content: "";
+            position: absolute;
+
+            width: 13px;
+            height: 13px;
+
+            background: #050505;
+
+            border-radius: 50%;
+
+            top: 17px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+        .anime-symbol::after {
+            top: auto;
+            bottom: 17px;
+        }
+
+        @keyframes spinSymbol {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .header-text h2 {
+            font-family: "Bangers", cursive;
+            font-size: clamp(2rem, 5vw, 4rem);
+            letter-spacing: 3px;
+            color: #fff;
+        }
+
+        .header-text p {
+            margin-top: 5px;
+            color: #ff6300;
+            font-size: clamp(0.7rem, 2vw, 1rem);
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+
+        .status {
+            padding: 10px 17px;
+
+            border: 1px solid #ff5700;
+            border-radius: 50px;
+
+            color: #ff7100;
+
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            font-weight: 800;
+
+            box-shadow: 0 0 15px rgba(255,80,0,0.25);
+        }
+
+        /* ==========================
+           CONTENT
+        ========================== */
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+
+            display: grid;
+
+            grid-template-columns: 0.95fr 1.7fr;
+
+            gap: 45px;
+        }
+
+        /* ==========================
+           AVATAR
+        ========================== */
+
+        .avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar {
+            width: min(100%, 300px);
+            aspect-ratio: 1;
+
+            border-radius: 25px;
+
+            border: 2px solid rgba(255, 88, 0, 0.8);
+
+            background:
+                radial-gradient(circle at 50% 35%, #ff7a00, transparent 18%),
+                radial-gradient(circle at 50% 50%, #a20a00, transparent 55%),
+                linear-gradient(145deg, #130300, #000);
+
+            box-shadow:
+                0 0 30px rgba(255,70,0,0.25),
+                inset 0 0 40px rgba(255,60,0,0.15);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .avatar::before {
+            content: "忍";
+
+            font-family: serif;
+
+            font-size: clamp(6rem, 15vw, 10rem);
+            font-weight: 900;
+
+            color: rgba(255, 255, 255, 0.9);
+
+            text-shadow:
+                0 0 20px rgba(255,80,0,0.9),
+                8px 8px 0 #5f0000;
+
+            transform: rotate(-8deg);
+        }
+
+        .avatar::after {
+            content: "";
+
+            position: absolute;
+            inset: 13px;
+
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 18px;
+        }
+
+        .rank {
+            margin-top: 20px;
+
+            background: #ff4d00;
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 50px;
+
+            font-weight: 900;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+
+            letter-spacing: 2px;
+
+            box-shadow: 0 0 20px rgba(255,70,0,0.45);
+        }
+
+        /* ==========================
+           INFORMATION
+        ========================== */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .info-box {
+            position: relative;
+
+            padding: 22px 23px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.06),
+                    rgba(255,255,255,0.025)
+                );
+
+            border: 1px solid rgba(255,255,255,0.09);
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .info-box:hover {
+            transform: translateY(-5px);
+
+            border-color: rgba(255,83,0,0.8);
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.5),
+                0 0 20px rgba(255,60,0,0.12);
+        }
+
+        .label {
+            display: block;
+
+            color: #8f8f8f;
+
+            font-size: clamp(0.7rem, 1.3vw, 0.9rem);
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 9px;
+        }
+
+        .value {
+            display: block;
+
+            font-size: clamp(1.2rem, 3vw, 2rem);
+
+            line-height: 1.25;
+
+            color: white;
+
+            font-weight: 800;
+
+            word-break: break-word;
+        }
+
+        .value.highlight {
+            color: #ff6200;
+
+            text-shadow:
+                0 0 12px rgba(255,60,0,0.35);
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        /* ==========================
+           FOOTER
+        ========================== */
+
+        .card-footer {
+            position: relative;
+            z-index: 2;
+
+            margin-top: 28px;
+
+            padding-top: 22px;
+
+            border-top: 1px solid rgba(255,255,255,0.1);
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: clamp(0.65rem, 1.3vw, 0.85rem);
+
+            letter-spacing: 2px;
+        }
+
+        .card-footer span {
+            color: #ff5a00;
+        }
+
+        /* ==========================
+           BUTTONS
+        ========================== */
+
+        .buttons {
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 15px;
+
+            margin-top: 25px;
+        }
+
+        .btn {
+            border: 1px solid #ff5a00;
+
+            background: rgba(255,70,0,0.08);
+
+            color: #ff6a00;
+
+            padding: 13px 20px;
+
+            border-radius: 12px;
+
+            font-family: "Orbitron", sans-serif;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+        .btn:hover {
+            background: #ff5700;
+            color: white;
+
+            box-shadow:
+                0 0 20px rgba(255,70,0,0.35);
+
+            transform: translateY(-2px);
+        }
+
+        /* ==========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 850px) {
+
+            .page {
+                padding: 25px 15px;
+            }
+
+            .id-card {
+                padding: 28px;
+                border-radius: 24px;
+            }
+
+            .card-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .avatar {
+                max-width: 260px;
+            }
+        }
+
+        @media (max-width: 560px) {
+
+            .main-title {
+                letter-spacing: 2px;
+            }
+
+            .subtitle {
+                letter-spacing: 2px;
+            }
+
+            .id-card {
+                padding: 20px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-left {
+                width: 100%;
+            }
+
+            .anime-symbol {
+                width: 65px;
+                height: 65px;
+            }
+
+            .status {
+                align-self: flex-start;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .info-box {
+                padding: 19px;
+            }
+
+            .value {
+                font-size: clamp(1.15rem, 7vw, 1.7rem);
+            }
+
+            .avatar {
+                max-width: 230px;
+            }
+        }
+
+        @media (max-width: 360px) {
+
+            .id-card {
+                padding: 15px;
+            }
+
+            .header-left {
+                gap: 12px;
+            }
+
+            .anime-symbol {
+                width: 55px;
+                height: 55px;
+            }
+
+            .info-box {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="energy one"></div>
+    <div class="energy two"></div>
+
+    <main class="page">
+
+        <h1 class="main-title">ANIME ID CARD</h1>
+
+        <p class="subtitle">
+            SHINOBI REGISTRATION • NARUTO SYSTEM
+        </p>
+
+        <section class="id-card">
+
+            <!-- HEADER -->
+            <header class="card-header">
+
+                <div class="header-left">
+
+                    <div class="anime-symbol"></div>
+
+                    <div class="header-text">
+                        <h2>NARUTO</h2>
+                        <p>SHINOBI PROFILE</p>
+                    </div>
+
+                </div>
+
+                <div class="status">
+                    ● VERIFIED
+                </div>
+
+            </header>
+
+
+            <!-- MAIN CONTENT -->
+            <div class="card-content">
+
+                <!-- AVATAR -->
+                <div class="avatar-section">
+
+                    <div class="avatar"></div>
+
+                    <div class="rank">
+                        CLASS 9 • SHINOBI
+                    </div>
+
+                </div>
+
+
+                <!-- INFORMATION -->
+                <div class="info-grid">
+
+                    <div class="info-box">
+                        <span class="label">Card Name</span>
+                        <span class="value highlight">Naruto</span>
+                    </div>
+
+                    <div class="info-box">
+                        <span class="label">Username</span>
+                        <span class="value">Sayan Ghosh</span>
+                    </div>
+
+                    <div class="info-box">
+                        <span class="label">Age</span>
+                        <span class="value">14+</span>
+                    </div>
+
+                    <div class="info-box">
+                        <span class="label">Class</span>
+                        <span class="value">9</span>
+                    </div>
+
+                    <div class="info-box full">
+                        <span class="label">Card ID</span>
+                        <span class="value highlight">
+                            ANU-240-630-ADK-29
+                        </span>
+                    </div>
+
+                    <div class="info-box">
+                        <span class="label">Mother's Name</span>
+                        <span class="value">Jaya Ghosh</span>
+                    </div>
+
+                    <div class="info-box">
+                        <span class="label">Father's Name</span>
+                        <span class="value">Suman Ghosh</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+            <footer class="card-footer">
+                ANIME DATABASE • <span>NARUTO SYSTEM</span> • ID VERIFIED
+            </footer>
+
+        </section>
+
+
+        <!-- BUTTONS -->
+        <div class="buttons">
+
+            <button class="btn" onclick="downloadCard()">
+                SAVE CARD
+            </button>
+
+            <button class="btn" onclick="copyID()">
+                COPY CARD ID
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /* =========================================
+           CARD DATA
+        ========================================= */
+
+        const cardData = {
+            cardName: "Naruto",
+            username: "Sayan Ghosh",
+            age: "14+",
+            cardID: "ANU-240-630-ADK-29",
+            mother: "Jaya Ghosh",
+            father: "Suman Ghosh",
+            class: "9"
+        };
+
+
+        /* =========================================
+           COPY CARD ID
+        ========================================= */
+
+        function copyID() {
+
+            navigator.clipboard.writeText(cardData.cardID)
+                .then(() => {
+
+                    alert("Card ID copied:\n" + cardData.cardID);
+
+                })
+                .catch(() => {
+
+                    alert("Your Card ID is:\n" + cardData.cardID);
+
+                });
+        }
+
+
+        /* =========================================
+           SAVE PAGE
+        ========================================= */
+
+        function downloadCard() {
+
+            const html = document.documentElement.outerHTML;
+
+            const blob = new Blob(
+                [html],
+                { type: "text/html" }
+            );
+
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+
+            a.href = url;
+            a.download = "naruto-anime-id-card.html";
+
+            document.body.appendChild(a);
+
+            a.click();
+
+            document.body.removeChild(a);
+
+            URL.revokeObjectURL(url);
+        }
+
+    </script>
+
+</body>
+</html>
